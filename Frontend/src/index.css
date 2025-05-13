@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+
+:root {
+  
+  /* line-height: 1.5;
+  font-weight: 400; */
+  /* background-color: antiquewhite; */
+  font-family: ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+
+}
+
+
+
+body {
+  
+  background: #f9fafb;
+  box-sizing: content-box;
+  display: flex;
+  flex-direction: column;
+  /* min-height: 100vh; */
+
+}
+.miniHeader{
+  padding: 10px 20%;
+}
+
+.p-20{
+  padding: 4% 20%;
+}
+
+.borderRight{
+  border-right: 2px solid #ccc;
+}
+

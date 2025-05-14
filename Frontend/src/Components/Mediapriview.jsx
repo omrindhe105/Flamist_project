@@ -6,26 +6,41 @@ function Mediapriview({ imageUrl }) {
   const getProxiedUrl = (url) =>
     `http://localhost:3000/proxy?url=${encodeURIComponent(url)}`;
 
+  //****************************** */
+
+
   const handleDownload = async (url) => {
-    try {
-      const response = await fetch("http://localhost:3000/download", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: imageUrl }),
-      });
+  
 
-      const result = await response.json();
-      console.log("Media URL:", result.media);
+   
+      try {
+        const response = await fetch(getProxiedUrl(url)); // Use proxy to bypass CORS
+    
+        if (!response.ok) throw new Error('Download failed');
+    
+        const blob = await response.blob(); // Convert to binary
+        const downloadUrl = window.URL.createObjectURL(blob); // Create temporary download URL
+    
+        const link = document.createElement('a');
+        link.href = downloadUrl;
+        const ext = url.includes('.mp4') ? '.mp4' : '.jpg';
+        link.download = `instagram-media${ext}`;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.URL.revokeObjectURL(downloadUrl); // Clean up
+    
+        alert('✅ Download started');
+      } catch (err) {
+        console.error('❌ Download error:', err.message);
+        alert('Download failed');
+      }
 
-      setMediaUrl(result.media);
-      setInputLink("");
-    } catch (error) {
-      console.error("Download failed:", error);
-      alert("Failed to download media.");
-    }
+
+
+
   };
+  
 
   return (
     <ul className="flex flex-wrap gap-3 md:flex-row  justify-center max-w-4xl mx-auto my-4 overflow-x-auto bg-blue">
@@ -47,7 +62,7 @@ function Mediapriview({ imageUrl }) {
             />
           )}
           <button
-            className=" bg-blue-700  text-2xl font-semibold px-4 text-white   rounded hover:bg-blue cursor-pointer w-[300px]"
+            className=" bg-blue-700 mt-2 text-2xl font-semibold px-4 text-white   rounded hover:bg-blue cursor-pointer w-[300px]"
             onClick={() => handleDownload(url)}
           >
             Download

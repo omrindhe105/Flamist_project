@@ -13,16 +13,17 @@ async function extractMediaFromPage(url) {
       const media = new Set();
       const postContainer = document.querySelector('article');
       if (!postContainer) return [];
-      const videos = postContainer.querySelectorAll('video');
+      // const videos = postContainer.querySelectorAll('video');
       const images = postContainer.querySelectorAll('img');
 
-      videos.forEach(video => video.src && media.add(video.src));
+      // videos.forEach(video => video.src && media.add(video.src));
       images.forEach(img => {
         if (
-          img.src &&
-          img.naturalWidth > 300 &&
-          !img.src.includes('profile') &&
-          !img.src.includes('s150x150')
+          img.src
+          //  &&
+          // img.naturalWidth > 300 &&
+          // !img.src.includes('profile') &&
+          // !img.src.includes('s150x150')
         ) {
           media.add(img.src);
         }

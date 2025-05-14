@@ -28,7 +28,7 @@ app.post('/searchMedia', async (req, res) => {
 });
 
 // POST: Download media files locally
-app.post('/download', async (req, res) => {
+app.post('/download-direct', async (req, res) => {
   const { url } = req.body;
 
   if (!url || typeof url !== 'string') {
@@ -36,42 +36,32 @@ app.post('/download', async (req, res) => {
   }
 
   try {
-    const media = await extractMediaFromPage(url);
-    if (!media || media.length === 0) {
-      return res.status(404).json({ message: 'No media found on the page.' });
-    }
+    const ext = url.includes('.mp4') ? '.mp4' : '.jpg';
+    const filename = `media${Date.now()}${ext}`;
+    const filePath = path.resolve(__dirname, 'downloads', filename);
+    const writer = fs.createWriteStream(filePath);
 
-    console.log("Downloading media...");
+    const response = await axios({
+      url,
+      method: 'GET',
+      responseType: 'stream',
+    });
 
-    for (let i = 0; i < media.length; i++) {
-      const mediaUrl = media[i];
-      const ext = mediaUrl.includes('.mp4') ? '.mp4' : '.jpg';
-      const filename = `media_post${i}${ext}`;
-      const filePath = path.resolve(__dirname, 'downloads', filename);
-      const writer = fs.createWriteStream(filePath);
+    response.data.pipe(writer);
 
-      const response = await axios({
-        url: mediaUrl,
-        method: 'GET',
-        responseType: 'stream',
-      });
+    await new Promise((resolve, reject) => {
+      writer.on('finish', resolve);
+      writer.on('error', reject);
+    });
 
-      response.data.pipe(writer);
-
-      await new Promise((resolve, reject) => {
-        writer.on('finish', resolve);
-        writer.on('error', reject);
-      });
-
-      console.log(`Downloaded ${filename}`);
-    }
-
-    res.status(200).json({ message: 'Media downloaded successfully' });
+    console.log(`Downloaded ${filename}`);
+    res.status(200).json({ message: 'Single media downloaded successfully' });
   } catch (error) {
     console.error(`Download error: ${error.message}`);
     res.status(500).json({ error: 'An error occurred while downloading media' });
   }
 });
+
 
 // GET: Proxy media URL to bypass CORS
 app.get('/proxy', async (req, res) => {

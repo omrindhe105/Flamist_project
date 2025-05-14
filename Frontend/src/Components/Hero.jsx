@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Video, Image, Eye, Film, Radar } from 'lucide-react';
 
 import Mediapriview from './Mediapriview';
+import Loader from './Loader';
 
 
 function Hero() {
@@ -29,7 +30,7 @@ function Hero() {
       });
 
       const result = await response.json();
-      console.log("Media URL:", result.media);
+      
 
       setMediaUrl(result.media);
       setInputLink("");
@@ -52,9 +53,8 @@ function Hero() {
 
   return (
     <div>
-        <div className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 py-7 text-center text-white">
+    <div className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 py-7 text-center text-white">
       <div className="w-11/12 md:w-4/6 lg:w-3/6 mx-auto">
-
         {/* Icon Section */}
         <div className="flex flex-wrap justify-center bg-white/30 md:backdrop-blur-lg rounded-lg mt-5 text-white cursor-pointer">
           {[{ icon: Video, label: "Video" },
@@ -68,7 +68,7 @@ function Hero() {
             </div>
           ))}
         </div>
-
+  
         {/* Heading Section */}
         <div className="mt-6">
           <h1 className="text-3xl md:text-5xl font-bold">Instagram Video Downloader</h1>
@@ -76,14 +76,14 @@ function Hero() {
             The fastest way to save your favorite Instagram videos directly to your device.
           </h2>
         </div>
-
+  
         {/* Form Section */}
         <form onSubmit={handleLinkSubmit} className="mt-6">
           <div className="flex flex-col md:flex-row items-center bg-white p-4 rounded-2xl gap-4">
             <input
               value={inputLink}
               onChange={(e) => setInputLink(e.target.value)}
-              className="w-full md:w-auto flex-1 px-4 py-2 rounded-md border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-black text-black text-lg"
+              className="w-full md:w-[350px] flex-1 px-4 py-2 rounded-md border-2 border-gray-300 focus:outline-none focus:ring-2 focus:ring-black text-black text-lg"
               type="text"
               placeholder="Enter Instagram URL Here"
             />
@@ -104,7 +104,7 @@ function Hero() {
             </button>
           </div>
         </form>
-
+  
         {/* Features Section */}
         <p className="text-sm text-purple-200 mt-3">
           Works with Instagram posts, reels, IGTV, and stories
@@ -122,26 +122,18 @@ function Hero() {
           ))}
         </div>
       </div>
+    </div>
   
-    
-      
-      
+    {/* Media Preview Section */}
+    <div className="w-11/12 md:w-4/6 lg:w-3/6 mx-auto mt-8 flex justify-center bg-[#F3F4F6]">
+      {isLoading ? (
+        <Loader/>
+      ) : (
+        mediaUrl && <Mediapriview imageUrl={mediaUrl} />
+      )}
     </div>
-    <div>
-
-    </div>
-<div className="w-11/12 md:w-4/6 lg:w-3/6 mx-auto mt-8">
-        {isLoading ? (
-          <div  >
-            loading .....
-          </div>
-        ) : (
-          mediaUrl && <Mediapriview imageUrl={mediaUrl} />
-        )}
-      </div>
-
-    </div>
-
+  </div>
+  
   );
 }
 

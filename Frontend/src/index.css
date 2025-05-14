@@ -10,11 +10,21 @@
 
 }
 
+/* In global CSS */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+
 
 
 body {
   
-  background: #f9fafb;
+  background: #F3F4F6;
   box-sizing: content-box;
   display: flex;
   flex-direction: column;
@@ -32,4 +42,7 @@ body {
 .borderRight{
   border-right: 2px solid #ccc;
 }
+
+
+
 

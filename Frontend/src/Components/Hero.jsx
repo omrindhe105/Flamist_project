@@ -56,7 +56,7 @@ function Hero() {
     <div className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 py-7 text-center text-white">
       <div className="w-11/12 md:w-4/6 lg:w-3/6 mx-auto">
         {/* Icon Section */}
-        <div className="flex flex-wrap justify-center bg-white/30 md:backdrop-blur-lg rounded-lg mt-5 text-white cursor-pointer">
+        <div className="flex flex-wrap justify-center bg-white/30 md:backdrop-blur-lg rounded-lg mt-5 text-white ">
           {[{ icon: Video, label: "Video" },
           { icon: Image, label: "Photos" },
           { icon: Film, label: "Reels" },
@@ -71,9 +71,9 @@ function Hero() {
   
         {/* Heading Section */}
         <div className="mt-6">
-          <h1 className="text-3xl md:text-5xl font-bold">Instagram Video Downloader</h1>
+          <h1 className="text-3xl md:text-5xl font-bold">Instagram Content Downloader</h1>
           <h2 className="mt-3 text-base md:text-lg">
-            The fastest way to save your favorite Instagram videos directly to your device.
+            The fastest way to save your favorite Instagram content directly to your device.
           </h2>
         </div>
   
@@ -106,9 +106,7 @@ function Hero() {
         </form>
   
         {/* Features Section */}
-        <p className="text-sm text-purple-200 mt-3">
-          Works with Instagram posts, reels, IGTV, and stories
-        </p>
+       
         <div className="flex flex-wrap justify-center items-center gap-4 text-white/80 mt-5">
           {[
             { color: "green", text: "100% Safe & Secure" },

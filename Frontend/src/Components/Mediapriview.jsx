@@ -29,10 +29,10 @@ function Mediapriview({ imageUrl }) {
       link.remove();
       window.URL.revokeObjectURL(downloadUrl); // Clean up
 
-      alert('✅ Download started');
+      
     } catch (err) {
       console.error('❌ Download error:', err.message);
-      alert('Download failed');
+      
     }
 
 

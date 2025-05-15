@@ -38,7 +38,7 @@ const Footer = () => {
 
     {/* Footer Bottom Section */}
     <div className="border-t border-gray-800 mt-8 pt-8 flex justify-center items-center text-sm text-gray-400">
-      <p>Made with <Heart size={16} className="inline text-pink-500 mx-1" /> by Flamist Team</p>
+      <p>Made with <Heart size={16} className="inline text-pink-500 mx-1" /> by OM RINDHE</p>
     </div>
   </div>
 </footer>
